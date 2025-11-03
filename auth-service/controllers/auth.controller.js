@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
                 throw new ApiError(400, 'One or more roles are invalid');
             }
         } else {
-            roleDocs = await Role.find({ name: 'user' });
+            roleDocs = await Role.find({ name: 'USER' });
         }
 
         let passwordHash = await hashPassword(password);
