@@ -1,9 +1,10 @@
-import { ApiError } from "../utils/ApiError.js"
+import { ApiError } from "../utils/ApiError.util.js"
 import User from "../models/user.model.js";
 import Role from "../models/role.model.js";
-import {comparePassword, hashPassword} from "../utils/hashPassword.js";
-import {sendSuccessResponse} from '../utils/responseHandler.js';
+import {comparePassword, hashPassword} from "../utils/hashPassword.util.js";
+import {sendSuccessResponse} from '../utils/responseHandler.util.js';
 import {generateToken} from "../utils/auth.util.js";
+import { EmailRegex } from "../constants/emailRegex.constants.js";
 
 
 export const registerUser = async (req, res) => {
@@ -14,6 +15,10 @@ export const registerUser = async (req, res) => {
 
         if(!email || !username || !password) {
             throw new ApiError(400, 'Email, username and password are required');
+        }
+
+        if(!EmailRegex.test(email)) {
+            throw new ApiError(400, 'Invalid Email');
         }
 
         if(await User.findOne({ $or: [{ email }, { username }] }) ){

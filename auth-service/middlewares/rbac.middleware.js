@@ -1,4 +1,4 @@
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "../utils/ApiError.util.js";
 
 export const rbacMiddleware = (requiredRoles=[])  => (req, res, next) => {
     if(!req.user || !req.user.roles) {
