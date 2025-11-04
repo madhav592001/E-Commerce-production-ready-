@@ -22,6 +22,22 @@ const userSchema = new Schema({
             required: true
         }
     ],
+    refreshTokens: [
+        {
+            token: {
+                type: String, 
+                required: true
+            },
+            createdAt: {
+                type: String,
+                default: Date.now
+            },
+            expiresAt: {
+                type: Date,
+                required: true
+            }
+        }
+    ]
 }, {
     timestamps: true,
 })
