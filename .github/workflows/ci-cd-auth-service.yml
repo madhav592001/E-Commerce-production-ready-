@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+if: |
+  contains(github.event.head_commit.message, 'auth-service') ||
+  contains(join(github.event.commits.*.modified, ' ','auth-service')) ||
+  contains(join(github.event.commits.*.added, ' '), 'auth-service')
+runs-on: ubuntu-latest
+defaults:
+  run:
+    working-directory: ./auth-service
+uses: actions/checkout@v4
+name: Setup Node.js
+uses: actions/setup-node@v4
+with:
+  node-version: '22.20.0'
+name: Install Dependencies and test
+run: |
+  npm ci 
+  npm test 
+name: Deploy to render 
+run: curl -X POST ${{ secrets.RENDER_AUTH_SERVICE_DEPLOY_HOOK }}
