@@ -26,7 +26,7 @@ jobs:
       - name: Install Dependencies and test
         run: npm ci 
       - name: run tests
-        run: npm test 
+        run: npm test -- --runInBand
       - name: Deploy to render 
         if: success()
         run: curl -X POST ${{ secrets.RENDER_AUTH_SERVICE_DEPLOY_HOOK }}
