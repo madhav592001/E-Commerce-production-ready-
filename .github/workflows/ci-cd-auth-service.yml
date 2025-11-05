@@ -1,3 +1,6 @@
+
+name: CI/CD for auth-service
+
 on:
   push:
     branches: [master]
@@ -7,8 +10,8 @@ jobs:
   auth-service:
     if: |
       contains(github.event.head_commit.message, 'auth-service') ||
-      contains(join(github.event.commits.*.modified, ' '),'./auth-service') ||
-      contains(join(github.event.commits.*.added, ' '), './auth-service')
+      contains(toJSON(github.event.commits.*.message), 'auth-service') ||
+      contains(github.event.pull_request.title, 'auth-service')
     runs-on: ubuntu-latest
     defaults:
       run:
