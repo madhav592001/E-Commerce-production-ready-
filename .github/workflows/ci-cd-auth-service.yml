@@ -2,11 +2,11 @@ on:
   push:
     branches: [master]
     paths:
-      - "auth-service/**"
+      - "./auth-service/**"
   pull_request:
     branches: [master]
     paths:
-      - "auth-service/**"
+      - "./auth-service/**"
 jobs:
   auth-service:
     if: |
