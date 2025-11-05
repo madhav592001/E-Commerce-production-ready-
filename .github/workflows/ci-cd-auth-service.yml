@@ -1,8 +1,12 @@
 on:
   push:
     branches: [master]
+    paths:
+      - "auth-service/**"
   pull_request:
     branches: [master]
+    paths:
+      - "auth-service/**"
 jobs:
   auth-service:
     if: |
