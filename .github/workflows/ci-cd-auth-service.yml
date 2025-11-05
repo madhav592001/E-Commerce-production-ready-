@@ -1,12 +1,8 @@
 on:
   push:
     branches: [master]
-    paths:
-      - "./auth-service/**"
   pull_request:
     branches: [master]
-    paths:
-      - "./auth-service/**"
 jobs:
   auth-service:
     if: |
@@ -18,14 +14,16 @@ jobs:
       run:
         working-directory: ./auth-service
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.20.0'
       - name: Install Dependencies and test
-        run: |
-          npm ci 
-          npm test 
+        run: npm ci 
+      - name: run tests
+        run: npm test 
       - name: Deploy to render 
+        if: success()
         run: curl -X POST ${{ secrets.RENDER_AUTH_SERVICE_DEPLOY_HOOK }}
