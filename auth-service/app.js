@@ -8,8 +8,9 @@ import userRouter from './routes/user.routes.js'
 dotenv.config();
 
 const app = express();
-app.use(express.json());
 
+//! Middlewares
+app.use(express.json());
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter )
 
